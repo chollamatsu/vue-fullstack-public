@@ -1,0 +1,57 @@
+:root {
+    /* Fonts */
+    --font-regular: "Arial";
+    --font-color: var(--black-1);
+
+    /* Font Weight */
+    --bold: 700;
+    --semiBold: 600;
+    --medium: 500;
+    --regular: 400;
+    --light: 300;
+
+    /* Font Size */
+    --font-xl: 30px;
+    --font-l: 25px;
+    --font-m: 20px;
+    --font-s: 16px;
+
+    /* Background color */
+    --home-background-color: var(--white-2);
+    --product-background-color: var(--white-3);
+
+    /* Border colors */
+    --border-color: var(--grey-2);
+    --border-active-color: var(--light-blue-3);
+    --border-navbar-color: var(--white-3);
+    --border-shopping-cart-color: var(--white-3);
+
+    /* Button Color */
+    /* NavBar */
+    --navbar-button-background-color: var(--black-1);
+    --navbar-button-text-color: var(--white-2);
+    /* Primary  */
+    --primary-button-background-color: var(--light-blue-1);
+    --primary-button-text-color: var(--black-2);
+    --primary-button-border-color: var(--light-blue-4);
+    --primary-button-hover-background-color: var(--light-blue-2);
+    /* Warning */
+    --warning-button-background-color: var(--orange-1);
+    --warning-button-text-color: var(--black-3);
+    --warning-button-border-color: var(--orange-3);
+    --warning-button-hover-background-color: var(--orange-2);
+    /* Danger */
+    --danger-button-background-color: var(--scarlet-1);
+    --danger-button-text-color: var(--black-3);
+    --danger-button-border-color: var(--scarlet-4);
+    --danger-button-hover-background-color: var(--scarlet-2);
+
+    /* Link  */
+    --link: var(--black-1);
+
+    /* Input Box  */
+    --input-product-background-color: var(--scarlet-4);
+
+    /* Icons */
+    --home-icon: var(--pink-1);
+}

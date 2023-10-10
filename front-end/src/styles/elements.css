@@ -1,0 +1,110 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial;
+}
+
+.page-wrap {
+  margin: auto;
+  max-width: 800px;
+  min-height: 100vh;
+}
+
+button {
+  background-color: var(--black-2);
+  border: none;
+  border-radius: 25px;
+  color: var(--white-2);
+  cursor: pointer;
+  font-size: var(--font-s);
+  /* font-weight: bold; */
+  outline: 0;
+  padding: 6px;
+}
+
+button:hover {
+  background-color: var(--light-blue-2);
+}
+
+h1 {
+  border-bottom: 1px solid black;
+  margin: 0;
+  margin-top: 16px;
+  padding: 16px;
+}
+
+.remove-button {
+  flex: 1;
+  margin: auto;
+  background-color: var(--danger-button-background-color);
+  /* background-color: var(--primary-button-background-color); */
+}
+.remove-button:hover {
+  background-color: var(--danger-button-hover-background-color);
+}
+
+.edit-button {
+  flex: 1;
+  margin: auto;
+  background-color: var(--warning-button-background-color);
+}
+.edit-button:hover {
+  background-color: var(--danger-button-hover-background-color);
+}
+
+.img-wrap {
+  margin-top: 32px;
+  text-align: center;
+  display: flex; /*sai*/
+  justify-content: center; /*sai*/
+}
+
+.img-wrap img {
+  width: 400px;
+}
+
+.sign-in {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.green-button {
+  background-color: var(--green-2);
+}
+
+.grey-button {
+  background-color: var(--grey-2);
+  width: 100%;
+}
+
+.loading-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 8rem;
+}
+#footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #1f2937;
+  color: white;
+  text-align: center;
+}
+#navbar {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+}
+.ribbon {
+  width: 60px;
+  font-size: var(--font-s);
+  padding: 4px;
+  position: absolute;
+  right: -25px;
+  top: -12px;
+  text-align: center;
+  border-radius: 25px;
+  transform: rotate(20deg);
+  background-color: #ff9800;
+  color: white;
+}

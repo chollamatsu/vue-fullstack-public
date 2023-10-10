@@ -1,0 +1,4 @@
+to do:
+1. update task in kanban board!
+2. profile card ยัง pass params ไม่ได้
+3. server side got syntax err

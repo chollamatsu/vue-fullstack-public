@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* display */
+.grid { display: grid; }
+.flex { display: flex; }
+
+/* width */
+.w-full { width: 100%; }
+
+/* Height */
+.h-full { height: 100%;}
+.h-6 { height: 1.5rem;}
+
