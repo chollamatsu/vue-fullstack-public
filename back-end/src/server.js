@@ -21,58 +21,34 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 async function start() {
-  //เราจะได้ connect mongo db in once แค่ที่เดียวตอนที่เข้า function instead of connect db of every endpoints.
 
   // Crate new instance
   const url = `mongodb oauth`;
   const client = new MongoClient(url);
-  //------------------
 
   // Connect to mongo db
   await client.connect();
   const db = client.db("fsv-db");
-  //------------------
-  // Start running application?
+
   const app = express();
   app.use(express.json());
-  //------------------
 
   app.use("/images", express.static(path.join(__dirname, "../assets")));
-  // Define mongodb schema for data validation, type checking, structure code, schema evolution( for handle schema migrate)
-  // const Schema = monogoose.Schema;
-  // const itemSchema = new Schema({
-  //   id: String,
-  //   name: String,
-  //   price: String,
-  //   imageUrl: String,
-  // });
 
-  // const Item = mongoose.model("Item", itemSchema);
-
-  // File upload
-  app.post("/api/upload", upload.single("image"), (req, res) => {
-    console.warn("file upload - req:", req);
-    console.warn("file upload - req body:", req.body);
-    console.warn("file upload - req file name:", req.file);
-  });
   // Make static path
-  // Tell express that we would like to serve files from assets folder.
   app.use("/images", express.static(path.join(__dirname, "../assets")));
 
-  //------------------
   /* When we request to the server at port '8000' then the server will trigger to this logic below and response to request at the client side and display on browser */
 
-  // Part of functions
+  // Part of Function
+
   async function poppulateCartIds(ids) {
     return Promise.all(
       ids.map((id) => db.collection("products").findOne({ id }))
     );
-    // return ids.map((id) => products.find((product) => product.id === id));
   }
 
-  //------------------
-
-  // Part of EndPoint => API
+  // Part of EndPoint
 
   // Get all products.
   app.get("/api/products", async (req, res) => {
@@ -86,6 +62,14 @@ async function start() {
     //   const product = products.find((product) => product.id === productId);
     const product = await db.collection("products").findOne({ id: productId });
     res.json(product);
+  });
+
+  // Upload product
+  app.post("/api/upload", upload.single("image"), async (req, res) => {
+    const product = {...req.body, ...{imageUrl: `/images/${req.file.filename}`}}
+    db.collection("products").insertOne(product);
+    const products = await db.collection("products").find({}).toArray();
+    res.send(products);
   });
 
   // Get intems in cart from user.
@@ -106,7 +90,7 @@ async function start() {
     await db.collection("users").updateOne(
       { id: userId },
       {
-        $addToSet: { cartItems: productId }, // '$' => just tell mongo db what type of update we would like to perform.
+        $addToSet: { cartItems: productId },
       }
     );
 

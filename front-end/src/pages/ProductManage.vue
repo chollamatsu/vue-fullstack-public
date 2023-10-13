@@ -41,7 +41,6 @@ export default {
   methods: {
     async onSubmit() {
       const formData = new FormData();
-      formData.append("id", "01"); // Mock id
       formData.append("name", this.name);
       formData.append("price", this.price);
       formData.append("image", this.$refs.image.files[0]);
