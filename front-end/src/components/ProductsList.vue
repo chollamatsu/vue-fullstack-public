@@ -7,21 +7,40 @@
       <router-link :to="'/productdetail/' + product.id">
         <button >{{ titles.VIEW_DETAIL }}</button>
       </router-link>
+      <button @click="onDeleteProduct(product)" class="bg-red-50 hover:bg-red-500">Delete</button>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "ProductList",
   props:["products"],
+  components: {
+    // eslint-disable-next-line
+    axios,
+  },
   data(){
     return {
       titles: {
         VIEW_DETAIL:"View Details",
       }
     }
-  }
+  },
+  methods: {
+    async onDeleteProduct(product) {
+      console.log("product item - id: ", product._id);
+      const res = await axios.delete(`/api/products/${product._id}`);
+      // await axios.delete(`/api/products/${product._id}`);
+      console.log("delete response:", res);
+      if (res) {
+        alert("Delete Succesfully!");
+      } else {
+        alert("Delete Unsuccesfully!")
+      }
+    },
+  },
 };
 </script>
 

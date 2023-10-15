@@ -33,8 +33,6 @@ async function start() {
   const app = express();
   app.use(express.json());
 
-  app.use("/images", express.static(path.join(__dirname, "../assets")));
-
   // Make static path
   app.use("/images", express.static(path.join(__dirname, "../assets")));
 
@@ -71,6 +69,17 @@ async function start() {
     const products = await db.collection("products").find({}).toArray();
     res.send(products);
   });
+
+  // Delete product
+  app.delete("/api/products/:productId", async (req, res) => {
+    const productId = new ObjectId(req.params.productId.toString());
+
+    const product = await db
+      .collection("products")
+      .deleteOne({ _id: productId });
+    res.json(product);
+  });
+
 
   // Get intems in cart from user.
   app.get("/api/users/:userId/cart", async (req, res) => {
