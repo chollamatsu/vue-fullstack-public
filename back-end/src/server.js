@@ -70,6 +70,27 @@ async function start() {
     res.send(products);
   });
 
+  // Update product
+  app.post("/api/product/:productId", async (req, res) => {
+    console.log("update request:", req);
+    console.log("update request - params:", req.params);
+    console.log("update request - body:", req.body);
+    const productId = new ObjectId(req.body._id);
+    const product = req.body;
+    const response = await db.collection("products").updateOne(
+      { _id: productId },
+      {
+        $set: {
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          imageUrl: product.imageUrl,
+        },
+      }
+    );
+    res.json(response);
+  });
+
   // Delete product
   app.delete("/api/products/:productId", async (req, res) => {
     const productId = new ObjectId(req.params.productId.toString());

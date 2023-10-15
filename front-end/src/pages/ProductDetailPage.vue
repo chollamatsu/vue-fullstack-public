@@ -34,6 +34,14 @@
         <button v-else class="grey-button cursor-not-allowed">
           {{ titles.ITEM_ADDED }}
         </button>
+        <button @click="OnEdit" class="edit-btn bg-orange-50 hover:bg-orange-500">Edit</button>
+        <div v-if="isEdit">
+          <span>Edit name: </span>
+          <input type="text" v-model="name"><br>
+          <span>Edit name: </span>
+          <input type="text" v-model="price">
+          <button @click="OnUpdate">Update Name</button>
+        </div>
       </div>
     </div>
     <div v-else>
@@ -55,7 +63,10 @@ export default {
       titles: {
         ADD_TO_CART: "Add to Cart",
         ITEM_ADDED: "This item is added"
-      }
+      },
+      isEdit: false,
+      name: '',
+      price: '',
     };
   },
   components: {
@@ -68,6 +79,24 @@ export default {
       });
       alert("Items added successfully!!!");
     },
+    OnEdit() {
+      console.log("product detail:", this.product);
+      this.isEdit = !this.isEdit;
+    },
+    async OnUpdate() {
+      // const oldName = this.product.name;
+      this.product.name = this.name;
+      this.product.price = this.price;
+      console.log("name product updated!!!", this.product);
+      const response = await axios.post(`/api/product/${this.product.id}`, this.product)
+      console.log("update name response:", response);
+      if(response) {
+        this.isEdit = !this.isEdit;
+        alert("name product updated!!!");
+      } else {
+        alert("Failed to update!!!");
+      }
+    }
   },
   computed: {
     isInCart() {
