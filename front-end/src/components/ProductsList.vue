@@ -45,29 +45,41 @@ export default {
 </script>
 
 <style scoped>
+button {
+  border: 1px solid var(--product-list-border-color);
+  background-color: var(--product-list-background-color);
+}
+
+button:hover {
+  border: 1px solid var(--product-list-hover-border-color);
+  background-color: var(--product-list-hover-background-color);
+  color: var(--font-hover-color);
+}
+
 .grid-wrap {
   display: flex;
   justify-content: flex-start;
-  gap: 16px;
   flex-wrap: wrap;
+  gap: 16px;
   margin-top: 16px;
 }
 
 .product-item {
-  align-items: center;
-  border-radius: 8px;
-  box-shadow: 0px 2px 5px #ddd085c7;
   display: flex;
+  align-items: center;
   flex-direction: column;
-  margin-bottom: 2%;
-  padding: 20px;
   position: relative;
+  border: 1px solid var(--border-product);
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 2%;
   width: 32%;
 }
 
 .product-item img {
   height: 200px;
   width: 200px;
+  border-radius: 6px;
 }
 
 .product-item a {

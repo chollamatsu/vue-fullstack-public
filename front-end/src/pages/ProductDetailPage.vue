@@ -1,33 +1,46 @@
 <template>
   <div>
     <div v-if="product">
-      <div class="img-wrap">
-        <img :src="product.imageUrl" />
-      </div>
-      <div class="product-details">
-        <div class="detail-title">
-          <h2>{{ product.name }}</h2>
-          <h3>{{ product.price }}</h3>
+      <div class="page-wrap detail">
+        <div class="product-images">
+          <div class="img-show">
+            <img :src="product.imageUrl" />
+          </div>
+          <img :src="product.imageUrl" />
+          <img :src="product.imageUrl" />
+          <img :src="product.imageUrl" />
         </div>
+        <div class="product-details">
+          <h2 class="product-title">{{ product.name }}</h2>
+          <div class="detail-title">
+            <h2>{{ titles.DETAIL }}</h2>
+            <h2>{{ product.name }}</h2>
+          </div>
+          <div class="detail-title">
+            <h2>{{ titles.PRICE }}</h2>
+            <h3>{{ product.price }}</h3>
+          </div>
 
-        <button
-          @click="addToCart"
-          class="add-to-cart"
-          v-if="!isInCart"
-        >
-        <cartIconVue/>
-          {{ titles.ADD_TO_CART }}
-        </button>
-        <button v-else class="grey-button cursor-not-allowed">
-          {{ titles.ITEM_ADDED }}
-        </button>
-        <button @click="OnEdit" class="edit-btn bg-orange-50 hover:bg-orange-500">Edit</button>
-        <div v-if="isEdit">
-          <span>Edit name: </span>
-          <input type="text" v-model="name"><br>
-          <span>Edit name: </span>
-          <input type="text" v-model="price">
-          <button @click="OnUpdate">Update Name</button>
+          <button @click="addToCart" class="add-to-cart" v-if="!isInCart">
+            <cartIconVue />
+            {{ titles.ADD_TO_CART }}
+          </button>
+          <button v-else class="grey-button cursor-not-allowed">
+            {{ titles.ITEM_ADDED }}
+          </button>
+          <button
+            @click="OnEdit"
+            class="edit-btn bg-orange-50 hover:bg-orange-500"
+          >
+            Edit
+          </button>
+          <div v-if="isEdit">
+            <span>Edit name: </span>
+            <input type="text" v-model="name" /><br />
+            <span>Edit name: </span>
+            <input type="text" v-model="price" />
+            <button @click="OnUpdate">Update Name</button>
+          </div>
         </div>
       </div>
     </div>
@@ -40,7 +53,7 @@
 <script>
 import NotFoundPage from "./NotFoundPage.vue";
 import axios from "axios";
-import cartIconVue from '../components/icons/cartIcon.vue';
+import cartIconVue from "../components/icons/cartIcon.vue";
 
 export default {
   name: "ProductDetailPage",
@@ -51,16 +64,16 @@ export default {
       cartItems: [],
       titles: {
         ADD_TO_CART: "Add to Cart",
-        ITEM_ADDED: "This item is added"
+        ITEM_ADDED: "This item is added",
       },
       isEdit: false,
-      name: '',
-      price: '',
+      name: "",
+      price: "",
     };
   },
   components: {
     NotFoundPage,
-    cartIconVue
+    cartIconVue,
   },
   methods: {
     async addToCart() {
@@ -78,15 +91,18 @@ export default {
       this.product.name = this.name;
       this.product.price = this.price;
       console.log("name product updated!!!", this.product);
-      const response = await axios.post(`/api/product/${this.product.id}`, this.product)
+      const response = await axios.post(
+        `/api/product/${this.product.id}`,
+        this.product
+      );
       console.log("update name response:", response);
-      if(response) {
+      if (response) {
         this.isEdit = !this.isEdit;
         alert("name product updated!!!");
       } else {
         alert("Failed to update!!!");
       }
-    }
+    },
   },
   computed: {
     isInCart() {
@@ -117,10 +133,16 @@ export default {
   position: relative;
 }
 
+.product-title {
+  display: flex;
+  justify-content: center;
+}
+
 .detail-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 5vh 2vw;
 }
 .add-to-cart {
   width: 100%;
@@ -134,5 +156,29 @@ export default {
 
 svg {
   display: unset;
+}
+
+.detail {
+  display: grid;
+  grid-template-columns: 700px auto;
+  align-items: flex-start;
+  margin-top: 15vh;
+}
+
+.product-images {
+  display: grid;
+  grid-template-columns: 480px 150px;
+  justify-content: space-evenly;
+  grid-row-gap: 10px;
+}
+
+.img-show {
+  grid-row-start: 1;
+  grid-row-end: 6;
+  height: 480px;
+}
+
+img {
+  border-radius: 6px;
 }
 </style>
