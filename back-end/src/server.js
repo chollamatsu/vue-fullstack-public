@@ -1,14 +1,13 @@
-import express from "express";
-import { MongoClient } from "mongodb"; //Is a class that we can create new instances of
-// import mongoose from "mongoose";
-import path from "path";
+// import express from "express";
+import {cartItems, products} from './temp-data';
+// import path from "path";
 
 // file upload
-const multer = require("multer");
+// const multer = require("multer");
 // const monogoose = require("mongoose");
 
 // Config Multer to store uploaded files in a folder
-const storage = multer.diskStorage({
+/* const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, "assets"); // the image will be stored in assets folder
   },
@@ -18,12 +17,12 @@ const storage = multer.diskStorage({
     callback(null, Date.now() + ext);
   },
 });
-const upload = multer({ storage });
+const upload = multer({ storage }); */
 
 async function start() {
 
   // Crate new instance
-  const url = `mongodb oauth`;
+  /* const url = `mongodb oauth`;
   const client = new MongoClient(url);
 
   // Connect to mongo db
@@ -31,47 +30,46 @@ async function start() {
   const db = client.db("fsv-db");
 
   const app = express();
-  app.use(express.json());
+  app.use(express.json()); */
 
   // Make static path
-  app.use("/images", express.static(path.join(__dirname, "../assets")));
+//   app.use("/images", express.static(path.join(__dirname, "../assets")));
 
   /* When we request to the server at port '8000' then the server will trigger to this logic below and response to request at the client side and display on browser */
 
   // Part of Function
 
-  async function poppulateCartIds(ids) {
+  /* async function poppulateCartIds(ids) {
     return Promise.all(
       ids.map((id) => db.collection("products").findOne({ id }))
     );
-  }
+  } */
 
   // Part of EndPoint
 
   // Get all products.
-  app.get("/api/products", async (req, res) => {
-    const products = await db.collection("products").find({}).toArray(); //add to array because Node.js doesn't give us an array
-    res.send(products);
+  app.get("/api/products", async (res) => {
+    res.json(products);
   });
 
   // Get Each product.
-  app.get("/api/products/:productId", async (req, res) => {
+  /* app.get("/api/products/:productId", async (req, res) => {
     const productId = req.params.productId;
     //   const product = products.find((product) => product.id === productId);
     const product = await db.collection("products").findOne({ id: productId });
     res.json(product);
-  });
+  }); */
 
   // Upload product
-  app.post("/api/upload", upload.single("image"), async (req, res) => {
+  /* app.post("/api/upload", upload.single("image"), async (req, res) => {
     const product = {...req.body, ...{imageUrl: `/images/${req.file.filename}`}}
     db.collection("products").insertOne(product);
     const products = await db.collection("products").find({}).toArray();
     res.send(products);
-  });
+  }); */
 
   // Update product
-  app.post("/api/product/:productId", async (req, res) => {
+  /* app.post("/api/product/:productId", async (req, res) => {
     console.log("update request:", req);
     console.log("update request - params:", req.params);
     console.log("update request - body:", req.body);
@@ -89,21 +87,21 @@ async function start() {
       }
     );
     res.json(response);
-  });
+  }); */
 
   // Delete product
-  app.delete("/api/products/:productId", async (req, res) => {
+  /* app.delete("/api/products/:productId", async (req, res) => {
     const productId = new ObjectId(req.params.productId.toString());
 
     const product = await db
       .collection("products")
       .deleteOne({ _id: productId });
     res.json(product);
-  });
+  }); */
 
 
   // Get intems in cart from user.
-  app.get("/api/users/:userId/cart", async (req, res) => {
+  /* app.get("/api/users/:userId/cart", async (req, res) => {
     const user = await db
       .collection("users")
       .findOne({ id: req.params.userId });
@@ -111,10 +109,10 @@ async function start() {
     const populateCart = await poppulateCartIds(user.cartItems);
     console.log("populateCart = ", populateCart);
     res.json(populateCart);
-  });
+  }); */
 
   // Insert item in products list.
-  app.post("/api/users/:userId/cart", async (req, res) => {
+  /* app.post("/api/users/:userId/cart", async (req, res) => {
     const userId = req.params.userId;
     const productId = req.body.id;
     await db.collection("users").updateOne(
@@ -124,9 +122,10 @@ async function start() {
       }
     );
 
-    /* Note: both of push & add to set were added data but they are quit different in the same term.
-    $push = add duplicate item.
-    $addToSet = add non duplicate data that's mean if user add the same item which ever stored in the cart. it won't change any at all */
+    //  Note: both of push & add to set were added data but they are quit different in the same term.
+    // $push = add duplicate item.
+    // $addToSet = add non duplicate data that's mean if user add the same item which ever stored in the cart. it won't change any at all 
+    
     const user = await db
       .collection("users")
       .findOne({ id: req.params.userId });
@@ -134,10 +133,10 @@ async function start() {
     const populateCart = await poppulateCartIds(user.cartItems);
 
     res.json(populateCart);
-  });
+  }); */
 
   // Delete item from cart.
-  app.delete("/api/users/:userId/cart/:productId", async (req, res) => {
+  /* app.delete("/api/users/:userId/cart/:productId", async (req, res) => {
     const userId = req.params.userId;
     const productId = req.params.productId;
 
@@ -155,7 +154,7 @@ async function start() {
     const populateCart = await poppulateCartIds(user.cartItems);
 
     res.json(populateCart);
-  });
+  }); */
 
   // Create server at port 8000
   app.listen(8000, () => {
