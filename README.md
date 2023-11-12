@@ -16,4 +16,4 @@ It's designed for who want to trade the photograph.
    ```
    docker build -t frontend-image .
    ```
- For your information: 
+📄 **For your information:** This project in developing process and making an document. Currently, you can take a look of coding, logics and structure design. However to not wasted your time. I'll update new code as soon as possible. Hope you have a good day, thank you for your attentioin 🙂
