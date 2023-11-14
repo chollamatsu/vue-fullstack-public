@@ -20,6 +20,7 @@
     "@babel/node": "^7.22.5",
     "@babel/plugin-transform-runtime": "^7.22.5",
     "@babel/preset-env": "^7.22.5",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "npx": "^9.1.2"
   }
 }
